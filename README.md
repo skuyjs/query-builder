@@ -4,7 +4,7 @@ SQL query builder for NodeJS
 ## Compatibility
 This query builder is compatible with following Database Management Systems.
 - MySQL/MariaDB via [mysql2](https://www.npmjs.com/package/mysql2)
-- PostgreSQL via [mysql2](https://www.npmjs.com/package/pg)
+- PostgreSQL via [pg](https://www.npmjs.com/package/pg)
 
 ## Usage
 ### Installation
