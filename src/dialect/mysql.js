@@ -20,7 +20,15 @@ const select = (cols, table, where) => {
   return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
 };
 
+const exec = (connection, query) => new Promise((resolve, reject) => {
+  connection.query(query, (err, res) => {
+    if (!!err) return reject(err);
+    resolve(res);
+  });
+});
+
 module.exports = {
   connect,
   select,
+  exec,
 };
