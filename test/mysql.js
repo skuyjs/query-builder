@@ -2,19 +2,26 @@ const assert = require('assert');
 const Database = require('../src');
 
 describe('MySQL Dialect', () => {
+  const dialect = 'mysql';
 
   const db = new Database({
-    dialect: 'mysql',
+    dialect,
     username: 'root',
     password: 'root',
   });
 
-  db.connection.query('CREATE TABLE IF NOT EXISTS users (id int primary key auto_increment, fullname varchar(255), email varchar(255), password varchar(255))');
+  before(() => {
+    db.connection.query('CREATE TABLE IF NOT EXISTS users (id int primary key auto_increment, fullname varchar(255), email varchar(255), password varchar(255))');
+  });
 
-  it('should return `mysql`', () => {
+  after(() => {
+    db.close();
+  });
+
+  it(`should return \`${dialect}\``, () => {
     assert.equal(
       db.getDialect(),
-      'mysql'
+      dialect
     );
   });
 

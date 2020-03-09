@@ -4,9 +4,18 @@ class Database {
       dialect: 'mysql',
       ...options,
     };
-    this.dialect = require(`./dialect/${this.options.dialect}`);
-    this.connection = this.dialect.connect(this.options);
+
+    if (['mysql', 'mysql2'].indexOf(this.options.dialect) >= 0) {
+      if (this.options.dialect === 'mysql2') {
+        this.dialect = require(`./dialect/mysql`)('mysql2');
+      } else {
+        this.dialect = require(`./dialect/mysql`)('mysql');
+      }
+    } else {
+      this.dialect = require(`./dialect/${this.options.dialect}`);
+    }
     this.tableName = '';
+    this.connection = this.dialect.connect(this.options);
   }
 
   getDialect() {
@@ -53,6 +62,10 @@ class Database {
     }
 
     return result;
+  }
+
+  close() {
+    this.connection.end();
   }
 }
 
