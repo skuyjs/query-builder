@@ -24,7 +24,7 @@ const wrapper = (dialect) => {
   const exec = (connection, query) => new Promise((resolve, reject) => {
     connection.query(query, (err, res) => {
       if (!!err) return reject(err);
-      resolve(res);
+      resolve(res.map(r => ({...r})));
     });
   });
 
