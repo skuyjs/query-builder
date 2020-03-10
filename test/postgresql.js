@@ -9,7 +9,13 @@ describe('PostgreSQL Dialect', () => {
     password: 'hammurabi',
   });
 
-  // db.connection.query('CREATE TABLE IF NOT EXISTS users (id int primary key, fullname varchar(255), email varchar(255), password varchar(255))');
+  before(() => {
+    db.connection.query('CREATE TABLE IF NOT EXISTS users (id serial primary key, fullname varchar(255), email varchar(255), password varchar(255))');
+  });
+
+  after(() => {
+    db.close();
+  });
 
   it('should return `pg`', () => {
     assert.equal(
