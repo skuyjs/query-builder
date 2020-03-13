@@ -62,3 +62,17 @@ db
 // prints all data in users table, but
 // only fullname, email, and password columns
 ```
+
+#### Insert
+Inserting a data can do by use following lines.
+```javascript
+...
+db
+  .table('users')
+  .insert([null, 'my fullname', 'example@email.top', 'mypass123'])
+  .then(console.log)
+  .catch(console.log);
+
+// inserting data into users table
+// prints insertion result
+```
