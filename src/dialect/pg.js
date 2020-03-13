@@ -31,10 +31,8 @@ const insert = (table, value) => {
   let query = `INSERT INTO ${table} `;
   if (value.length > 0) {
     value = value.map(v => {
-      if (v === null) {
-        return "NULL";
-      } else if (v.toUpperCase() === 'DEFAULT') {
-        return `${v}`;
+      if (v === null || v.toUpperCase() === 'DEFAULT') {
+        return `DEFAULT`;
       }
       return `'${v}'`;
     });
