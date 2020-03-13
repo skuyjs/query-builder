@@ -23,7 +23,7 @@ const exec = async (connection, query) => {
     const result = await connection.query(query);
     return result.rows;
   } catch (e) {
-    return e;
+    throw e;
   }
 };
 
