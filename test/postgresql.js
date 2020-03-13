@@ -7,7 +7,7 @@ const db = new Database({
   password: 'hammurabi',
 });
 
-db.connection.query('CREATE TABLE IF NOT EXISTS users (id serial primary key, fullname varchar(255), email varchar(255), password varchar(255))');
+db.connection.query('CREATE TABLE IF NOT EXISTS users (id serial not null primary key, fullname varchar(255), email varchar(255), password varchar(255))');
 
 test('should return `pg`', (t) => {
   t.is(
@@ -39,3 +39,13 @@ test('should result.query is `SELECT * FROM users WHERE id=1`', async (t) => {
     'SELECT * FROM users WHERE id=1'
   );
 });
+
+test('should result.query is `INSERT INTO users VALUES(NULL, "email", "password", "fullname")`', async (t) => {
+  const result = await db.table('users').insert(['DEFAULT', 'email', 'password', 'fullname']);
+
+  t.is(
+    result.query,
+    "INSERT INTO users VALUES(DEFAULT, 'email', 'password', 'fullname')"
+  );
+});
+

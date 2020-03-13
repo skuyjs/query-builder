@@ -8,6 +8,15 @@ const connect = (options) => new pg.Pool({
   port: options.port || 5432,
 });
 
+const exec = async (connection, query) => {
+  try {
+    const result = await connection.query(query);
+    return result.rows;
+  } catch (e) {
+    throw e;
+  }
+};
+
 const select = (cols, table, where) => {
   let wheres = '';
 
@@ -18,17 +27,25 @@ const select = (cols, table, where) => {
   return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
 };
 
-const exec = async (connection, query) => {
-  try {
-    const result = await connection.query(query);
-    return result.rows;
-  } catch (e) {
-    throw e;
+const insert = (table, value) => {
+  let query = `INSERT INTO ${table} `;
+  if (value.length > 0) {
+    value = value.map(v => {
+      if (v === null) {
+        return "NULL";
+      } else if (v.toUpperCase() === 'DEFAULT') {
+        return `${v}`;
+      }
+      return `'${v}'`;
+    });
+    query += `VALUES(${value.join(', ')})`;
   }
+  return query;
 };
 
 module.exports = {
   connect,
-  select,
   exec,
+  select,
+  insert,
 };
