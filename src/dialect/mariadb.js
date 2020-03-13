@@ -10,16 +10,6 @@ const connect = (options) => mariadb.createPool({
   queueLimit: options.queueLimit || 0,
 });
 
-const select = (cols, table, where) => {
-  let wheres = '';
-
-  if (!!where) {
-    wheres = `WHERE ${where}`;
-  }
-
-  return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
-};
-
 const exec = (connection, query) => new Promise((resolve, reject) => {
   connection
     .getConnection()
@@ -36,5 +26,4 @@ const exec = (connection, query) => new Promise((resolve, reject) => {
 module.exports = {
   connect,
   exec,
-  select,
 };

@@ -5,12 +5,8 @@ class Database {
       ...options,
     };
 
-    if (['mysql', 'mysql2'].indexOf(this.options.dialect) >= 0) {
-      if (this.options.dialect === 'mysql2') {
-        this.dialect = require(`./dialect/mysql`)('mysql2');
-      } else {
-        this.dialect = require(`./dialect/mysql`)('mysql');
-      }
+    if (['mysql', 'mysql2', 'mariadb'].indexOf(this.options.dialect) >= 0) {
+      this.dialect = require(`./dialect/mysql`)(this.options.dialect);
     } else {
       this.dialect = require(`./dialect/${this.options.dialect}`);
     }
