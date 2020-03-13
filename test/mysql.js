@@ -59,4 +59,19 @@ describe('MySQL Dialect', () => {
     });
   });
 
+  describe('Insert Query', () => {
+    it('should result.query is `INSERT INTO users(email, password, fullname) VALUES("email", "password", "fullname")`', async () => {
+      const result = await db.table('users').insert({
+        email: 'email',
+        password: 'password',
+        fullname: 'fullname',
+      });
+
+      assert.equal(
+        result.query,
+        'INSERT INTO users(email, password, fullname) VALUES("email", "password", "fullname")'
+      );
+    });
+  });
+
 });
