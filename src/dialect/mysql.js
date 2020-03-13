@@ -22,7 +22,11 @@ const wrapper = (dialect) => {
     exec = (connection, query) => new Promise((resolve, reject) => {
       connection.query(query, (err, res) => {
         if (!!err) return reject(err);
-        resolve(res.map(r => ({...r})));
+        if (!!res.map) return resolve(res.map(r => ({...r})));
+
+        const tmp = {};
+        Object.keys(res).forEach(k => { tmp[k] = res[k] });
+        resolve(tmp);
       });
     });
   }
@@ -37,10 +41,25 @@ const wrapper = (dialect) => {
     return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
   };
 
+  const insert = (table, value) => {
+    let query = `INSERT INTO ${table} `;
+    if (value.length > 0) {
+      value = value.map(v => {
+        if (v === null) {
+          return "NULL";
+        }
+        return `"${v}"`;
+      });
+      query += `VALUES(${value.join(', ')})`;
+    }
+    return query;
+  };
+
   return {
     connect,
     exec,
     select,
+    insert,
   }
 };
 

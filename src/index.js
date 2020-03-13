@@ -23,6 +23,10 @@ class Database {
     return this;
   }
 
+  getTable() {
+    return this.tableName;
+  }
+
   where(conditions, value) {
     this.conditions = '';
     if (typeof conditions === 'string') {
@@ -58,6 +62,15 @@ class Database {
     }
 
     return result;
+  }
+
+  async insert(value) {
+    let query = this.dialect.insert(this.getTable(), value);
+    let result = await this.dialect.exec(this.connection, query);
+    return {
+      query,
+      result,
+    };
   }
 
   close() {

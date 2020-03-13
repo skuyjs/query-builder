@@ -16,7 +16,10 @@ const exec = (connection, query) => new Promise((resolve, reject) => {
     .then(con => {
       con
         .query(query)
-        .then(d => d.filter(a => d.meta))
+        .then(d => {
+          if (!!d.filter) return d.filter(a => d.meta);
+          return d;
+        })
         .then(resolve)
         .catch(reject)
         .finally(con.release);
