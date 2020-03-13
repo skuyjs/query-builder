@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
-    "test:report": "npm run test -- --reporter mochawesome --reporter-options reportDir=test-report && http-server -c-1 -g -p 8000 test-report"
+    "test": "ava",
+    "test:export": "mkdir -p test-report && (ava --tap | tap-that-html) > test-report/index.html",
+    "test:report": "nodemon --exec \"npm run test:export && http-server -c-1 -g -p 8000 test-report\""
   },
   "keywords": [
     "query",
@@ -15,9 +16,10 @@
   "author": "Hadi Hidayat Hammurabi <hadihammurabi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^3.5.0",
     "http-server": "^0.12.1",
-    "mocha": "^7.1.0",
-    "mochawesome": "^5.0.0"
+    "nodemon": "^2.0.2",
+    "tap-that-html": "^1.0.1"
   },
   "dependencies": {}
 }
