@@ -37,6 +37,20 @@ const insert = (table, value) => {
       return `'${v}'`;
     });
     query += `VALUES(${value.join(', ')})`;
+  } else if (Object.keys(value).length > 0) {
+    query += '(';
+    query += Object.keys(value).map(v => {
+        return v;
+      })
+      .join(', ');
+
+    query += ') VALUES (';
+
+    query += Object.keys(value).map(v => {
+        return `'${value[v]}'`;
+      })
+      .join(', ');
+      query += ')';
   }
   return query;
 };
