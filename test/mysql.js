@@ -51,3 +51,15 @@ test('result.query is `INSERT INTO users VALUES(NULL, "email", "password", "full
   );
 });
 
+test('result.query is `INSERT INTO users(email, password, fullname) VALUES("email", "password", "fullname")`', async (t) => {
+  const result = await db.table('users').insert({
+    email: 'email',
+    password: 'password',
+    fullname: 'fullname',
+  });
+
+  t.is(
+    result.query,
+    'INSERT INTO users(email, password, fullname) VALUES("email", "password", "fullname")'
+  );
+});
