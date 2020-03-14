@@ -73,7 +73,7 @@ const wrapper = (dialect) => {
     exec,
     select,
     insert,
-  }
+  };
 };
 
 module.exports = wrapper;
