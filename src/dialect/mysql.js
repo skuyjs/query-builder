@@ -42,7 +42,7 @@ const wrapper = (dialect) => {
   };
 
   const insert = (table, value) => {
-    let query = `INSERT INTO ${table} `;
+    let query = `INSERT INTO ${table}`;
     if (value.length > 0) {
       value = value.map(v => {
         if (v === null) {
@@ -50,7 +50,20 @@ const wrapper = (dialect) => {
         }
         return `"${v}"`;
       });
-      query += `VALUES(${value.join(', ')})`;
+      query += ` VALUES(${value.join(', ')})`;
+    } else if(Object.keys(value).length > 0) {
+      query += '(';
+      query += Object.keys(value).map(v => {
+          return v;
+        })
+        .join(', ');
+      query += ') VALUES(';
+
+      query += Object.keys(value).map(v => {
+          return `"${value[v]}"`;
+        })
+        .join(', ');
+        query += ')';
     }
     return query;
   };
