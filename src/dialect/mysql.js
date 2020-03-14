@@ -50,14 +50,14 @@ const wrapper = (dialect) => {
         }
         return `"${v}"`;
       });
-      query += ` VALUES(${value.join(', ')})`;
+      query += ` VALUES (${value.join(', ')})`;
     } else if(Object.keys(value).length > 0) {
       query += '(';
       query += Object.keys(value).map(v => {
           return v;
         })
         .join(', ');
-      query += ') VALUES(';
+      query += ') VALUES (';
 
       query += Object.keys(value).map(v => {
           return `"${value[v]}"`;
