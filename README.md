@@ -1,6 +1,11 @@
 # @hamjs/query-builder
 SQL query builder for NodeJS
 
+> ## TODOS:
+> - Update Query
+> - Delete Query
+> - Go to [NPMJS](https://npmjs.org) Registry
+
 ## Compatibility
 This query builder is compatible with following Database Management Systems.
 - MySQL via [mysql](https://www.npmjs.com/package/mysql)/[mysql2](https://www.npmjs.com/package/mysql2)
