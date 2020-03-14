@@ -81,3 +81,20 @@ db
 // inserting data into users table
 // prints insertion result
 ```
+
+Inserting a data with specific column(s) can do by use following lines.
+```javascript
+...
+db
+  .table('users')
+  .insert({
+    fullname: 'my fullname',
+    email: 'example@email.top',
+    password: 'mypass123'
+  })
+  .then(console.log)
+  .catch(console.log);
+
+// inserting data into users table
+// prints insertion result
+```
