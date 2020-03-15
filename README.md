@@ -2,8 +2,6 @@
 SQL query builder for NodeJS
 
 > ## TODOS:
-> - Update Query
-> - Delete Query
 > - Go to [NPMJS](https://npmjs.org) Registry
 
 ## Compatibility
