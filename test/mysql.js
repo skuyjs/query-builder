@@ -34,12 +34,12 @@ test('result.query is `SELECT email, password, fullname FROM users`', async (t) 
   );
 });
 
-test('result.query is `SELECT * FROM users WHERE id=1`', async (t) => {
+test('result.query is `SELECT * FROM users WHERE `id` = 1`', async (t) => {
   const result = await db.table('users').where({id: 1}).get();
 
   t.is(
     result.query,
-    'SELECT * FROM users WHERE id=1'
+    'SELECT * FROM users WHERE `id` = 1'
   );
 });
 

@@ -35,7 +35,7 @@ const wrapper = (dialect) => {
     let wheres = '';
 
     if (!!where) {
-      wheres = `WHERE ${where}`;
+      return mysql.format(`SELECT ${cols} FROM ${table} WHERE ?`, where);
     }
 
     return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
