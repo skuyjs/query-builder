@@ -100,11 +100,11 @@ test('result.query is `DELETE FROM users`', async (t) => {
   );
 });
 
-test('result.query is `DELETE FROM users WHERE id=1`', async (t) => {
+test('result.query is `DELETE FROM users WHERE `id` = 1`', async (t) => {
   const result = await db.table('users').where({ id: 1 }).rm();
 
   t.is(
     result.query,
-    'DELETE FROM users WHERE id=1'
+    'DELETE FROM users WHERE `id` = 1'
   );
 });

@@ -70,9 +70,8 @@ const wrapper = (dialect) => {
 
   const rm = (table, conditions) => {
     let query = `DELETE FROM ${table}`;
-    if (conditions !== null && conditions.length > 0) {
-      query += ' WHERE ';
-      query += conditions.join(' AND ');
+    if (Object.keys(conditions).length > 0) {
+      query = mysql.format(`${query} WHERE ?`, conditions);
     }
 
     return query;
