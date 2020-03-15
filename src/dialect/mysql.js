@@ -59,21 +59,10 @@ const wrapper = (dialect) => {
   };
 
   const update = (table, value, conditions) => {
-    let query = `UPDATE ${table} SET `;
-    query += Object.keys(value).map(v => {
-      let tmp = `${v}=`;
-      if (typeof value[v] === 'string') {
-        tmp += `"${value[v]}"`;
-      } else {
-        tmp += `${value[v]}`;
-      }
-      return tmp;
-    })
-    .join(', ');
+    let query = mysql.format(`UPDATE ${table} SET ?`, value);
 
-    if (conditions !== null && conditions.length > 0) {
-      query += ' WHERE ';
-      query += conditions.join(' AND ');
+    if (Object.keys(conditions).length > 0) {
+      query = mysql.format(`${query} WHERE ?`, conditions);
     }
 
     return query;
