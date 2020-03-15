@@ -60,7 +60,7 @@ const update = (table, value, conditions) => {
   query += Object.keys(value).map(v => {
     let tmp = `${v}=`;
     if (typeof value[v] === 'string') {
-      tmp += `"${value[v]}"`;
+      tmp += `'${value[v]}'`;
     } else {
       tmp += `${value[v]}`;
     }
