@@ -68,11 +68,33 @@ const wrapper = (dialect) => {
     return query;
   };
 
+  const update = (table, value, conditions) => {
+    let query = `UPDATE ${table} SET `;
+    query += Object.keys(value).map(v => {
+      let tmp = `${v}=`;
+      if (typeof value[v] === 'string') {
+        tmp += `"${value[v]}"`;
+      } else {
+        tmp += `${value[v]}`;
+      }
+      return tmp;
+    })
+    .join(', ');
+
+    if (conditions !== null && conditions.length > 0) {
+      query += ' WHERE ';
+      query += conditions.join(' AND ');
+    }
+
+    return query;
+  };
+
   return {
     connect,
     exec,
     select,
     insert,
+    update,
   };
 };
 
