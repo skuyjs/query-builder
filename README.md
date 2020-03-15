@@ -98,7 +98,7 @@ db
 ```
 
 #### Update
-Updating a data can do by use following lines.
+Updating all data(s) can do by use following lines.
 ```javascript
 db
   .table('users')
@@ -110,7 +110,7 @@ db
 // prints update result
 ```
 
-Updating a data with specific row(s) can do by use following lines.
+Updating data(s) with specific row(s) can do by use following lines.
 ```javascript
 db
   .table('users')
@@ -121,4 +121,30 @@ db
 
 // updating data(s) with 1 as id in users table
 // prints update result
+```
+
+#### Delete
+Deleting all datas can do by use following lines.
+```javascript
+db
+  .table('users')
+  .rm()
+  .then(console.log)
+  .catch(console.log);
+
+// deleting all data in users table
+// prints deletion result
+```
+
+Deleting data(s) with specific row(s) can do by use following lines.
+```javascript
+db
+  .table('users')
+  .where({ id: 1 })
+  .rm()
+  .then(console.log)
+  .catch(console.log);
+
+// deleting data(s) with 1 as id in users table
+// prints deletion result
 ```
