@@ -35,7 +35,16 @@ const wrapper = (dialect) => {
     let wheres = '';
 
     if (!!where) {
-      return mysql.format(`SELECT ${cols} FROM ${table} WHERE ?`, where);
+      const conditions = Object
+        .keys(where)
+        .map(k => {
+          if (typeof where[k] === 'string') {
+            return `\`${k}\` = '${where[k]}'`;
+          }
+          return `\`${k}\` = ${where[k]}`;
+        })
+        .join(' AND ');
+      return `SELECT ${cols} FROM ${table} WHERE ${conditions}`;
     }
 
     return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
@@ -58,20 +67,39 @@ const wrapper = (dialect) => {
     return query;
   };
 
-  const update = (table, value, conditions) => {
+  const update = (table, value, where) => {
     let query = mysql.format(`UPDATE ${table} SET ?`, value);
 
-    if (Object.keys(conditions).length > 0) {
-      query = mysql.format(`${query} WHERE ?`, conditions);
+    if (Object.keys(where).length > 0) {
+      const conditions = Object
+        .keys(where)
+        .map(k => {
+          if (typeof where[k] === 'string') {
+            return `\`${k}\` = '${where[k]}'`;
+          }
+          return `\`${k}\` = ${where[k]}`;
+        })
+        .join(' AND ');
+      query = `${query} WHERE ${conditions}`;
     }
 
     return query;
   };
 
-  const rm = (table, conditions) => {
+  const rm = (table, where) => {
     let query = `DELETE FROM ${table}`;
-    if (Object.keys(conditions).length > 0) {
-      query = mysql.format(`${query} WHERE ?`, conditions);
+
+    if (Object.keys(where).length > 0) {
+      const conditions = Object
+        .keys(where)
+        .map(k => {
+          if (typeof where[k] === 'string') {
+            return `\`${k}\` = '${where[k]}'`;
+          }
+          return `\`${k}\` = ${where[k]}`;
+        })
+        .join(' AND ');
+      query = `${query} WHERE ${conditions}`;
     }
 
     return query;
