@@ -96,3 +96,29 @@ db
 // inserting data into users table
 // prints insertion result
 ```
+
+#### Update
+Updating a data can do by use following lines.
+```javascript
+db
+  .table('users')
+  .update({ fullname: 'aye' })
+  .then(console.log)
+  .catch(console.log);
+
+// updating all data in users table
+// prints update result
+```
+
+Updating a data with specific row(s) can do by use following lines.
+```javascript
+db
+  .table('users')
+  .where({ id: 1 })
+  .update({ fullname: 'aye' })
+  .then(console.log)
+  .catch(console.log);
+
+// updating data(s) with 1 as id in users table
+// prints update result
+```
