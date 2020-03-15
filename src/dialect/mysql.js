@@ -89,12 +89,23 @@ const wrapper = (dialect) => {
     return query;
   };
 
+  const rm = (table, conditions) => {
+    let query = `DELETE FROM ${table}`;
+    if (conditions !== null && conditions.length > 0) {
+      query += ' WHERE ';
+      query += conditions.join(' AND ');
+    }
+
+    return query;
+  };
+
   return {
     connect,
     exec,
     select,
     insert,
     update,
+    rm,
   };
 };
 
