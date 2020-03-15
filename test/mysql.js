@@ -52,7 +52,7 @@ test('result.query is `INSERT INTO users VALUES (NULL, "email", "password", "ful
   );
 });
 
-test('result.query is `INSERT INTO users(email, password, fullname) VALUES ("email", "password", "fullname")`', async (t) => {
+test("result.query is `INSERT INTO users SET `email` = 'email', `password` = 'password', `fullname` = 'fullname'`", async (t) => {
   const result = await db.table('users').insert({
     email: 'email',
     password: 'password',
@@ -61,7 +61,7 @@ test('result.query is `INSERT INTO users(email, password, fullname) VALUES ("ema
 
   t.is(
     result.query,
-    'INSERT INTO users(email, password, fullname) VALUES ("email", "password", "fullname")'
+    "INSERT INTO users SET `email` = 'email', `password` = 'password', `fullname` = 'fullname'"
   );
 });
 

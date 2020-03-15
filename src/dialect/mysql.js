@@ -42,8 +42,9 @@ const wrapper = (dialect) => {
   };
 
   const insert = (table, value) => {
-    let query = `INSERT INTO ${table}`;
+    let query = '';
     if (value.length > 0) {
+      query = `INSERT INTO ${table}`;
       value = value.map(v => {
         if (v === null) {
           return "NULL";
@@ -52,18 +53,7 @@ const wrapper = (dialect) => {
       });
       query += ` VALUES (${value.join(', ')})`;
     } else if(Object.keys(value).length > 0) {
-      query += '(';
-      query += Object.keys(value).map(v => {
-          return v;
-        })
-        .join(', ');
-      query += ') VALUES (';
-
-      query += Object.keys(value).map(v => {
-          return `"${value[v]}"`;
-        })
-        .join(', ');
-        query += ')';
+      query += mysql.format(`INSERT INTO ${table} SET ?`, value);
     }
     return query;
   };
