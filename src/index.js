@@ -10,7 +10,7 @@ class Database {
     } else {
       this.dialect = require(`./dialect/${this.options.dialect}`);
     }
-    this.tableName = '';
+    this.clear();
     this.connection = this.dialect.connect(this.options);
   }
 
@@ -38,10 +38,16 @@ class Database {
     return this;
   }
 
+  clear() {
+    this.conditions = '';
+    this.tableName = '';
+  }
+
   async all() {
     const result = {};
     result.query = this.dialect.select('*', this.tableName);
     result.rows = await this.dialect.exec(this.connection, result.query);
+    this.clear();
     return result;
   }
 
@@ -61,12 +67,25 @@ class Database {
       result.error = e;
     }
 
+    this.clear();
     return result;
   }
 
   async insert(value) {
     let query = this.dialect.insert(this.getTable(), value);
     let result = await this.dialect.exec(this.connection, query);
+
+    return {
+      query,
+      result,
+    };
+  }
+
+  async update(value) {
+    let query = this.dialect.update(this.getTable(), value, this.conditions);
+    let result = await this.dialect.exec(this.connection, query);
+
+    this.clear();
     return {
       query,
       result,
