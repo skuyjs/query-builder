@@ -28,11 +28,11 @@ class Database {
   }
 
   where(conditions, value) {
-    this.conditions = '';
+    this.conditions = {};
     if (typeof conditions === 'string') {
-      this.conditions = `${conditions}=${value}`;
+      this.conditions[conditions] = value;
     } else if (typeof conditions === 'object') {
-      this.conditions = Object.keys(conditions).map(c => `${c}=${conditions[c]}`);
+      this.conditions = conditions;
     }
 
     return this;
