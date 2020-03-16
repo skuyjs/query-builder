@@ -92,8 +92,8 @@ class Database {
     };
   }
 
-  async rm() {
-    let query = this.dialect.rm(this.getTable(), this.conditions);
+  async del() {
+    let query = this.dialect.del(this.getTable(), this.conditions);
     let result = await this.dialect.exec(this.connection, query);
 
     this.clear();

@@ -90,10 +90,30 @@ const update = (table, value, where) => {
   return query;
 };
 
+const del = (table, where) => {
+  let query = `DELETE FROM ${table}`;
+
+  if (Object.keys(where).length > 0) {
+    const conditions = Object
+      .keys(where)
+      .map(k => {
+        if (typeof where[k] === 'string') {
+          return `"${k}" = '${where[k]}'`;
+        }
+        return `"${k}" = ${where[k]}`;
+      })
+      .join(' AND ');
+    query = `${query} WHERE ${conditions}`;
+  }
+
+  return query;
+};
+
 module.exports = {
   connect,
   exec,
   select,
   insert,
   update,
+  del,
 };
