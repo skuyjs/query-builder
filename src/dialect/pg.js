@@ -18,13 +18,22 @@ const exec = async (connection, query) => {
 };
 
 const select = (cols, table, where) => {
-  let wheres = '';
+  let query = `SELECT ${cols} FROM ${table}`;
 
-  if (!!where) {
-    wheres = `WHERE ${where}`;
+  if (!!where && Object.keys(where).length > 0) {
+    const conditions = Object
+      .keys(where)
+      .map(k => {
+        if (typeof where[k] === 'string') {
+          return `${k}='${where[k]}'`;
+        }
+        return `${k}=${where[k]}`;
+      })
+      .join(' AND ');
+    query += ` WHERE ${conditions}`;
   }
 
-  return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
+  return query;
 };
 
 const insert = (table, value) => {
@@ -55,7 +64,7 @@ const insert = (table, value) => {
   return query;
 };
 
-const update = (table, value, conditions) => {
+const update = (table, value, where) => {
   let query = `UPDATE ${table} SET `;
   query += Object.keys(value).map(v => {
     let tmp = `${v}=`;
@@ -68,9 +77,14 @@ const update = (table, value, conditions) => {
   })
   .join(', ');
 
-  if (conditions !== null && conditions.length > 0) {
-    query += ' WHERE ';
-    query += conditions.join(' AND ');
+  if (!!where && Object.keys(where).length > 0) {
+    const conditions = Object.keys(where).map(k => {
+      if (typeof where[k] === 'string') {
+        return `${k}='${where[k]}'`;
+      }
+      return `${k}=${where[k]}`;
+    });
+    query += ` WHERE ${conditions}`;
   }
 
   return query;

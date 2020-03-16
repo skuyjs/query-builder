@@ -62,7 +62,7 @@ test("result.query is `INSERT INTO users(email, password, fullname) VALUES('emai
   );
 });
 
-test('result.query is `UPDATE users SET fullname="fullname", email="email", password="password"`', async (t) => {
+test("result.query is `UPDATE users SET fullname='fullname', email='email', password='password'`", async (t) => {
   const result = await db.table('users').where().update({
     fullname: 'fullname',
     email: 'email',
@@ -71,11 +71,11 @@ test('result.query is `UPDATE users SET fullname="fullname", email="email", pass
 
   t.is(
     result.query,
-    'UPDATE users SET fullname="fullname", email="email", password="password"'
+    "UPDATE users SET fullname='fullname', email='email', password='password'"
   );
 });
 
-test('result.query is `UPDATE users SET fullname="fullname", email="email", password="password" WHERE id=1`', async (t) => {
+test("result.query is `UPDATE users SET fullname='fullname', email='email', password='password' WHERE id=1`", async (t) => {
   const result = await db.table('users').where({ id: 1 }).update({
     fullname: 'fullname',
     email: 'email',
@@ -84,6 +84,6 @@ test('result.query is `UPDATE users SET fullname="fullname", email="email", pass
 
   t.is(
     result.query,
-    'UPDATE users SET fullname="fullname", email="email", password="password" WHERE id=1'
+    "UPDATE users SET fullname='fullname', email='email', password='password' WHERE id=1"
   );
 });
