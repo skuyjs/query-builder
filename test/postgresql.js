@@ -87,3 +87,21 @@ test("result.query is `UPDATE users SET fullname='fullname', email='email', pass
     "UPDATE users SET fullname='fullname', email='email', password='password' WHERE id=1"
   );
 });
+
+test('result.query is `DELETE FROM users`', async (t) => {
+  const result = await db.table('users').where().del();
+
+  t.is(
+    result.query,
+    'DELETE FROM users'
+  );
+});
+
+test('result.query is `DELETE FROM users WHERE "id" = 1`', async (t) => {
+  const result = await db.table('users').where({ id: 1 }).del();
+
+  t.is(
+    result.query,
+    'DELETE FROM users WHERE "id" = 1'
+  );
+});
