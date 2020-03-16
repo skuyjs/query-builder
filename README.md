@@ -37,6 +37,7 @@ It will give you `mysql` (your dialect) as output.
 > Example:
 >  - `npm install mysql` for mysql
 >  - `npm install mysql2` for mysql2
+>  - `npm install mariadb` for mariadb
 >  - `npm install pg` for pg
 
 ### Querying
