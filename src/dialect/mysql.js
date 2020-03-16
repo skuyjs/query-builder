@@ -86,7 +86,7 @@ const wrapper = (dialect) => {
     return query;
   };
 
-  const rm = (table, where) => {
+  const del = (table, where) => {
     let query = `DELETE FROM ${table}`;
 
     if (Object.keys(where).length > 0) {
@@ -111,7 +111,7 @@ const wrapper = (dialect) => {
     select,
     insert,
     update,
-    rm,
+    del,
   };
 };
 

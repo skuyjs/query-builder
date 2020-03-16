@@ -92,7 +92,7 @@ test("result.query is `UPDATE users SET `fullname` = 'fullname', `email` = 'emai
 });
 
 test('result.query is `DELETE FROM users`', async (t) => {
-  const result = await db.table('users').where().rm();
+  const result = await db.table('users').where().del();
 
   t.is(
     result.query,
@@ -101,7 +101,7 @@ test('result.query is `DELETE FROM users`', async (t) => {
 });
 
 test('result.query is `DELETE FROM users WHERE `id` = 1`', async (t) => {
-  const result = await db.table('users').where({ id: 1 }).rm();
+  const result = await db.table('users').where({ id: 1 }).del();
 
   t.is(
     result.query,
