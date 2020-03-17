@@ -19,6 +19,7 @@ class Database {
   }
 
   table(name) {
+    this.clear();
     this.tableName = name;
     return this;
   }
@@ -39,7 +40,7 @@ class Database {
   }
 
   clear() {
-    this.conditions = '';
+    this.conditions = {};
     this.tableName = '';
   }
 
@@ -47,7 +48,6 @@ class Database {
     const result = {};
     result.query = this.dialect.select('*', this.tableName);
     result.rows = await this.dialect.exec(this.connection, result.query);
-    this.clear();
     return result;
   }
 
@@ -67,7 +67,6 @@ class Database {
       result.error = e;
     }
 
-    this.clear();
     return result;
   }
 
@@ -85,7 +84,6 @@ class Database {
     let query = this.dialect.update(this.getTable(), value, this.conditions);
     let result = await this.dialect.exec(this.connection, query);
 
-    this.clear();
     return {
       query,
       result,
@@ -96,7 +94,6 @@ class Database {
     let query = this.dialect.del(this.getTable(), this.conditions);
     let result = await this.dialect.exec(this.connection, query);
 
-    this.clear();
     return {
       query,
       result,
