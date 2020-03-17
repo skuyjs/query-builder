@@ -37,6 +37,7 @@ It will give you `mysql` (your dialect) as output.
 > Example:
 >  - `npm install mysql` for mysql
 >  - `npm install mysql2` for mysql2
+>  - `npm install mariadb` for mariadb
 >  - `npm install pg` for pg
 
 ### Querying
@@ -128,7 +129,7 @@ Deleting all datas can do by use following lines.
 ```javascript
 db
   .table('users')
-  .rm()
+  .del()
   .then(console.log)
   .catch(console.log);
 
@@ -141,7 +142,7 @@ Deleting data(s) with specific row(s) can do by use following lines.
 db
   .table('users')
   .where({ id: 1 })
-  .rm()
+  .del()
   .then(console.log)
   .catch(console.log);
 
