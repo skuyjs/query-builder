@@ -8,6 +8,8 @@ const connect = (options) => new pg.Pool({
   port: options.port || 5432,
 });
 
+const disconnect = (connection) => connection.end();
+
 const exec = async (connection, query) => {
   try {
     const result = await connection.query(query);
@@ -111,6 +113,7 @@ const del = (table, where) => {
 
 module.exports = {
   connect,
+  disconnect,
   exec,
   select,
   insert,

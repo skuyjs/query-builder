@@ -2,11 +2,13 @@ const wrapper = (dialect) => {
   const mysql = require(dialect);
 
   let connect = () => {};
+  let disconnect = () => {};
   let exec = () => {};
 
   if (dialect === 'mariadb') {
     const mariadb = require('./mariadb');
     connect = mariadb.connect;
+    disconnect = mariadb.disconnect;
     exec = mariadb.exec;
   } else {
     connect = (options) => mysql.createPool({
@@ -18,6 +20,8 @@ const wrapper = (dialect) => {
       connectionLimit: options.connectionLimit || 100,
       queueLimit: options.queueLimit || 0,
     });
+
+    disconnect = (connection) => connection.end();
 
     exec = (connection, query) => new Promise((resolve, reject) => {
       connection.query(query, (err, res) => {
@@ -34,7 +38,7 @@ const wrapper = (dialect) => {
   const select = (cols, table, where) => {
     let wheres = '';
 
-    if (!!where) {
+    if (!!where && Object.keys(where).length > 0) {
       const conditions = Object
         .keys(where)
         .map(k => {
@@ -47,7 +51,7 @@ const wrapper = (dialect) => {
       return `SELECT ${cols} FROM ${table} WHERE ${conditions}`;
     }
 
-    return `SELECT ${cols} FROM ${table} ${wheres}`.trim();
+    return `SELECT ${cols} FROM ${table}`.trim();
   };
 
   const insert = (table, value) => {
@@ -107,6 +111,7 @@ const wrapper = (dialect) => {
 
   return {
     connect,
+    disconnect,
     exec,
     select,
     insert,

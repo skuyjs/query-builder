@@ -101,7 +101,7 @@ class Database {
   }
 
   close() {
-    this.connection.end();
+    this.dialect.disconnect(this.connection);
   }
 }
 

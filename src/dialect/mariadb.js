@@ -10,6 +10,8 @@ const connect = (options) => mariadb.createPool({
   queueLimit: options.queueLimit || 0,
 });
 
+const disconnect = (connection) => connection.end();
+
 const exec = (connection, query) => new Promise((resolve, reject) => {
   connection
     .getConnection()
@@ -28,5 +30,6 @@ const exec = (connection, query) => new Promise((resolve, reject) => {
 
 module.exports = {
   connect,
+  disconnect,
   exec,
 };
