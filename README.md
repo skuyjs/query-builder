@@ -1,4 +1,4 @@
-# @hamjs/query-builder
+# @skuyjs/query-builder
 SQL query builder for NodeJS
 
 ## Compatibility
@@ -10,14 +10,14 @@ This query builder is compatible with following Database Management Systems.
 ## Installation
 You can install by run this command inside your project by using terminal.
 ```bash
-npm i @hamjs/query-builder
+npm i @skuyjs/query-builder
 ```
 
 ## Usage
 ### Connecting to database server
 Type this following lines in your `.js` file and you can run it.
 ```javascript
-const Database = require('@hamjs/query-builder');
+const Database = require('@skuyjs/query-builder');
 const db = new Database({
   dialect: 'mysql',
   username: 'root',
