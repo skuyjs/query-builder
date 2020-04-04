@@ -10,7 +10,7 @@ This query builder is compatible with following Database Management Systems.
 ## Installation
 You can install by run this command inside your project by using terminal.
 ```bash
-npm i https://github.com/hadihammurabi/hamjs-query-builder
+npm i @hamjs/query-builder
 ```
 
 ## Usage
